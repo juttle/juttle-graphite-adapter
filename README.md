@@ -1,5 +1,7 @@
 # Juttle Graphite Backend
 
+[![Build Status](https://magnum.travis-ci.com/juttle/graphite-backend.svg?token=y7186y8XHjB7CcxwUcoX)](https://magnum.travis-ci.com/juttle/graphite-backend)
+
 Juttle graphite backend used to read and write metric data to an existing
 graphite setup.
 
@@ -87,3 +89,19 @@ readx graphite name~'*.response_ms' -from :24 hours ago:
 | put host = String.split(name, '.')[1]
 | reduce -every :1 minute: value=avg(value) by host
 ```
+
+# Development
+
+To run the built in tests we need a running graphite setup which you can easily
+spin up if you have docker by using the setup.sh script under /scripts like so:
+
+```
+cd scripts
+./setup.sh 
+```
+
+The script will pull the juttler/graphite image and spinup a docker container
+with the name `graphite`. 
+
+At this point you can simply run `npm test` to run the built in test through 
+mocha.

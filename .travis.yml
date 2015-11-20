@@ -7,14 +7,15 @@ services:
     - docker
 
 before_script:
-    - npm install
-    - docker pull sitespeedio/graphite
-    - docker run -d --name graphite -p 8080:80 -p 2003:2003 -v `pwd`/scripts/graphite/storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf sitespeedio/graphite
+    - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/juttle/juttle.git
+    - pushd juttle ; npm install ; npm link ; popd
+    - docker pull juttler/graphite:1
+    - docker run -d --name graphite -p 8080:80 -p 2003:2003 -v `pwd`/scripts/storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf juttler/graphite:1
 
 script:
+    - export NODE_PATH="$(dirname `which node`)/../lib/node_modules"
     - npm test
 
 after_script:
     - docker stop graphite
     - docker rm graphite
-
