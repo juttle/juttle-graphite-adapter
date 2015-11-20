@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+    - '0.10'
+
+services:
+    - docker
+
+before_script:
+    - npm install
+    - docker pull sitespeedio/graphite
+    - docker run -d --name graphite -p 8080:80 -p 2003:2003 -v `pwd`/scripts/graphite/storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf sitespeedio/graphite
+
+script:
+    - npm test
+
+after_script:
+    - docker stop graphite
+    - docker rm graphite
+

@@ -1,0 +1,31 @@
+{
+  "name": "juttle-graphite-backend",
+  "version": "0.1.0",
+  "description": "juttle graphite backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/juttle/juttle-graphite-backend"
+  },
+  "author": "Rodney Gomes <rodney@jut.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juttle/juttle-graphite-backend/issues"
+  },
+  "homepage": "https://github.com/juttle/juttle-graphite-backend",
+  "dependencies": {
+    "bluebird": "^3.0.5",
+    "isomorphic-fetch": "^2.2.0",
+    "lazy-socket": "0.0.4",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "bluebird-retry": "^0.5.2",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "uuid": "^2.0.1"
+  }
+}
