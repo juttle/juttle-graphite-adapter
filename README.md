@@ -4,15 +4,33 @@ Juttle graphite backend used to read and write metric data to an existing
 graphite setup.
 
 
-# Graphite Setup 
+# Installation / Setup
 
-The default configuration of graphite stores your data with 10s granularity
-and you may consider changing that so you can get per second resolution like
-so:
+Check out this repository and the juttle repository into a working directory.
 
-  [all_metrics]
-  pattern = .*
-  retentions = 1s:15d,15m:30d
+Run `npm link` in each.
+
+Make sure the following is in your environment:
+
+`NODE_PATH=/usr/local/lib/node_modules`
+
+
+# Configuration
+
+Add the following to ~/.juttle/config.json:
+
+    "juttle-graphite-backend": {
+        "carbon": {
+            "host": "localhost",
+            "port": 2003
+        },  
+        webapp: {
+            host: 'localhost',
+            port: 8080,
+            username: '...',
+            password: '...'
+        } 
+    }
 
 
 # Data Model
