@@ -24,7 +24,7 @@ describe('graphite-backend API tests', function () {
 
     it('fails when provided an invalid filter exprssion', function() {
         return check_juttle({
-            program: 'readx graphite -from :5 minutes ago: badfield="metric.does.not.exist"'
+            program: 'read graphite -from :5 minutes ago: badfield="metric.does.not.exist"'
         })
         .then(function() {
             throw Error('Previous statement should have failed');
@@ -35,7 +35,7 @@ describe('graphite-backend API tests', function () {
 
     it('reads no points initially', function() {
         return check_juttle({
-            program: 'readx graphite -from :5 minutes ago: name="metric.does.not.exist"'
+            program: 'read graphite -from :5 minutes ago: name="metric.does.not.exist"'
         })
         .then(function(result) {
             expect(result.errors.length).equal(0);
@@ -45,23 +45,23 @@ describe('graphite-backend API tests', function () {
 
     it('read without -from fails', function() {
         return check_juttle({
-            program: 'readx graphite name~"bananas"'
+            program: 'read graphite name~"bananas"'
         })
         .then(function() {
             throw Error('Previous statement should have failed');
         }).catch(function(err) {
-            expect(err.message).to.equal('Error: invalid readx graphite required option -from.');
+            expect(err.message).to.equal('Error: invalid read graphite required option -from.');
         });
     });
 
     it('read with -unknown fails', function() {
         return check_juttle({
-            program: 'readx graphite -unknown "bananas"'
+            program: 'read graphite -unknown "bananas"'
         })
         .then(function() {
             throw Error('Previous statement should have failed');
         }).catch(function(err) {
-            expect(err.message).to.equal('Error: unknown readx graphite option unknown.');
+            expect(err.message).to.equal('Error: unknown read graphite option unknown.');
         });
     });
 
@@ -74,7 +74,7 @@ describe('graphite-backend API tests', function () {
 
         return check_juttle({
             program: 'emit -from :' + now + ': -limit 1 ' + 
-                '| put name="metric' + uniqueness + '", value = count() | writex graphite'
+                '| put name="metric' + uniqueness + '", value = count() | write graphite'
         })
         .then(function(result) {
             expect(result.errors.length).equal(0);
@@ -83,7 +83,7 @@ describe('graphite-backend API tests', function () {
             return retry(function() {
                 return check_juttle({
                     // -:1s: becuase from is exclusive
-                    program: 'readx graphite -from :' + now + ':-:1s: name="metric' + uniqueness + '"'
+                    program: 'read graphite -from :' + now + ':-:1s: name="metric' + uniqueness + '"'
                 })
                 .then(function(result) {
                     expect(result.errors.length).equal(0);
@@ -102,7 +102,7 @@ describe('graphite-backend API tests', function () {
         return check_juttle({
             program: 'emit -from :1 hour ago: -limit ' + iterations + ' ' +
                 '| put name="metric' + uniqueness + '", value = count() ' +
-                '| writex graphite'
+                '| write graphite'
         })
         .then(function(result) {
             expect(result.errors.length).equal(0);
@@ -110,7 +110,7 @@ describe('graphite-backend API tests', function () {
         .then(function() {
             return retry(function() {
                 return check_juttle({
-                    program: 'readx graphite -from :2 hours ago: name="metric' + uniqueness + '"'
+                    program: 'read graphite -from :2 hours ago: name="metric' + uniqueness + '"'
                 })
                 .then(function(result) {
                     expect(result.errors.length).equal(0);
@@ -129,7 +129,7 @@ describe('graphite-backend API tests', function () {
         return check_juttle({
             program: 'emit -from :24 hours ago: -limit 24 -every :1 hour:' +
                 '| put name="metric' + uniqueness + '", value = count() ' +
-                '| writex graphite'
+                '| write graphite'
         })
         .then(function(result) {
             expect(result.errors.length).equal(0);
@@ -139,7 +139,7 @@ describe('graphite-backend API tests', function () {
                 return check_juttle({
                     // 25 hours ago because time is moving and 24 hours ago
                     // from the moment we did the write is now 24 hours ago + a few seconds
-                    program: 'readx graphite -from :25 hours ago: name="metric' + uniqueness + '"'
+                    program: 'read graphite -from :25 hours ago: name="metric' + uniqueness + '"'
                 })
                 .then(function(result) {
                     expect(result.errors.length).equal(0);
@@ -150,7 +150,7 @@ describe('graphite-backend API tests', function () {
         .then(function() {
             return retry(function() {
                 return check_juttle({
-                    program: 'readx graphite -from :20 hours ago: name="metric' + uniqueness + '"'
+                    program: 'read graphite -from :20 hours ago: name="metric' + uniqueness + '"'
                 })
                 .then(function(result) {
                     expect(result.errors.length).equal(0);
@@ -161,7 +161,7 @@ describe('graphite-backend API tests', function () {
         .then(function() {
             return retry(function() {
                 return check_juttle({
-                    program: 'readx graphite -from :20 hours ago: -to :3 hours ago: name="metric' + uniqueness + '"'
+                    program: 'read graphite -from :20 hours ago: -to :3 hours ago: name="metric' + uniqueness + '"'
                 })
                 .then(function(result) {
                     expect(result.errors.length).equal(0);
@@ -177,7 +177,7 @@ describe('graphite-backend API tests', function () {
             program: 'emit -from :30 seconds ago: -limit 4 ' +
                 '| ( put value = count(), name="metric' + uniqueness + '.region1.host${value}" ;' +
                 '    put value = count(), name="metric' + uniqueness + '.region2.host${value}" )' +
-                '| writex graphite'
+                '| write graphite'
         })
         .then(function(result) {
             expect(result.errors.length).equal(0);
@@ -185,7 +185,7 @@ describe('graphite-backend API tests', function () {
         .then(function() {
             return retry(function() {
                 return check_juttle({
-                    program: 'readx graphite -from :1 minute ago: ' + 
+                    program: 'read graphite -from :1 minute ago: ' + 
                         'name~"metric' + uniqueness + '.region2.*"'
                 })
                 .then(function(result) {

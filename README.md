@@ -60,7 +60,7 @@ data point with the same `name`,`value`, and `time` fields.
 Within **juttle** you can write your data out simply like so:
 
 ```
-readx ... | put .. | reduce .. | writex graphite
+read ... | put .. | reduce .. | write graphite
 ```
 
 The key thing is to make sure your data contains the fields `name`, `value` and
@@ -75,7 +75,7 @@ graphite later. More details on naming your metric found here:
 Reading existing metrics is simple as:
 
 ```
-readx graphite name~'app1.*.response_ms' -from :1 week ago:
+read graphite name~'app1.*.response_ms' -from :1 week ago:
 | reduce value=avg(value) by name
 ```
 
@@ -85,7 +85,7 @@ like `region.host.metric_name` then you can calculate the average value of the
 response time per host every 1 minute for the last 24 hours like so:
 
 ```
-readx graphite name~'*.response_ms' -from :24 hours ago:
+read graphite name~'*.response_ms' -from :24 hours ago:
 | put host = String.split(name, '.')[1]
 | reduce -every :1 minute: value=avg(value) by host
 ```

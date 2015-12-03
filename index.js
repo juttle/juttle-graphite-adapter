@@ -12,14 +12,14 @@ var fetch = require('isomorphic-fetch');
 function GraphiteBackend(config, Juttle) {
     var Read = Juttle.proc.base.extend({
         sourceType: 'batch',
-        procName: 'readx-graphite',
+        procName: 'read-graphite',
 
         initialize: function(options, params, pname, location, program, juttle) {
             var allowed_options = ['from', 'to'];
             var unknown = _.difference(_.keys(options), allowed_options);
             if (unknown.length > 0) {
                 throw this.compile_error('RT-UNKNOWN-OPTION-ERROR', {
-                    proc: 'readx graphite',
+                    proc: 'read graphite',
                     option: unknown[0]
                 });
             }
@@ -29,7 +29,7 @@ function GraphiteBackend(config, Juttle) {
         
             if (!this.from) { 
                 throw this.compile_error('RT-REQUIRED-OPTION-ERROR', {
-                    proc: 'readx graphite',
+                    proc: 'read graphite',
                     option: '-from'
                 });
             } 
