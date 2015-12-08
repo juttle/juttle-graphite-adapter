@@ -2,7 +2,7 @@
   "name": "juttle-graphite-backend",
   "version": "0.1.0",
   "description": "juttle graphite backend",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha test"
   },

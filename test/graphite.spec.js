@@ -1,7 +1,7 @@
 var juttle_test_utils = require('juttle/test/runtime/specs/juttle-test-utils');
 var check_juttle = juttle_test_utils.check_juttle;
 var expect = require('chai').expect;
-var graphite = require('../index.js');
+var graphite = require('../lib/index.js');
 var retry = require('bluebird-retry');
 var uuid = require('uuid');
 
