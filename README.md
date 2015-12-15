@@ -1,8 +1,8 @@
-# Juttle Graphite Backend
+# Juttle Graphite Adapter
 
-[![Build Status](https://magnum.travis-ci.com/juttle/graphite-backend.svg?token=y7186y8XHjB7CcxwUcoX)](https://magnum.travis-ci.com/juttle/graphite-backend)
+[![Build Status](https://magnum.travis-ci.com/juttle/juttle-graphite-adapter.svg?token=y7186y8XHjB7CcxwUcoX)](https://magnum.travis-ci.com/juttle/juttle-graphite-adapter)
 
-Juttle graphite backend used to read and write metric data to an existing
+Juttle graphite adapter used to read and write metric data to an existing
 graphite setup.
 
 
@@ -21,7 +21,7 @@ Make sure the following is in your environment:
 
 Add the following to ~/.juttle/config.json:
 
-    "juttle-graphite-backend": {
+    "juttle-graphite-adapter": {
         "carbon": {
             "host": "localhost",
             "port": 2003
@@ -48,7 +48,7 @@ Graphite stores metrics with:
     timestamp - the timestamp associated with this metric as an integer of
                 seconds since epoch.
 
-With this backend plugin we will simply map data points contain the same fields
+With this adapter we will simply map data points contain the same fields
 `name`,`value`, and `time` fields to a graphite metric. All other points missing
 these will be simply not written and a warning will be issued.
 
