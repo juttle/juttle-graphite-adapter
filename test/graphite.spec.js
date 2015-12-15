@@ -7,7 +7,7 @@ var uuid = require('uuid');
 
 var Juttle = require('juttle/lib/runtime').Juttle;
 
-Juttle.backends.register('graphite', graphite({
+Juttle.adapters.register('graphite', graphite({
     carbon: {
         host: 'localhost',
         port: 2003
@@ -20,7 +20,7 @@ Juttle.backends.register('graphite', graphite({
     }
 }, Juttle));
 
-describe('graphite-backend API tests', function () {
+describe('graphite-adapter API tests', function () {
 
     it('fails when provided an invalid filter exprssion', function() {
         return check_juttle({
