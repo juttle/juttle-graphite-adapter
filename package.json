@@ -2,20 +2,20 @@
   "name": "juttle-graphite-adapter",
   "version": "0.1.0",
   "description": "juttle graphite adapter",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "mocha test"
+  "homepage": "https://github.com/juttle/juttle-graphite-adapter",
+  "bugs": {
+    "url": "https://github.com/juttle/juttle-graphite-adapter/issues"
   },
+  "license": "MIT",
+  "author": "Rodney Gomes <rodney@jut.io>",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "http://github.com/juttle/juttle-graphite-adapter"
   },
-  "author": "Rodney Gomes <rodney@jut.io>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/juttle/juttle-graphite-adapter/issues"
+  "scripts": {
+    "test": "mocha test"
   },
-  "homepage": "https://github.com/juttle/juttle-graphite-adapter",
   "dependencies": {
     "bluebird": "^3.0.5",
     "isomorphic-fetch": "^2.2.0",
