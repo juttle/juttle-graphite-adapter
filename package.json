@@ -2,6 +2,7 @@
   "name": "juttle-graphite-adapter",
   "version": "0.1.0",
   "description": "juttle graphite adapter",
+  "keywords": ["juttle", "adapter", "graphite"],
   "homepage": "https://github.com/juttle/juttle-graphite-adapter",
   "bugs": {
     "url": "https://github.com/juttle/juttle-graphite-adapter/issues"
@@ -27,5 +28,9 @@
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "uuid": "^2.0.1"
+  },
+  "engines": {
+    "node": ">=0.10.40",
+    "npm": ">=2.1.6"
   }
 }
