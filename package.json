@@ -4,16 +4,11 @@
   "description": "juttle graphite adapter",
   "keywords": ["juttle", "adapter", "graphite"],
   "homepage": "https://github.com/juttle/juttle-graphite-adapter",
-  "bugs": {
-    "url": "https://github.com/juttle/juttle-graphite-adapter/issues"
-  },
+  "bugs": "https://github.com/juttle/juttle-graphite-adapter/issues",
   "license": "MIT",
   "author": "Rodney Gomes <rodney@jut.io>",
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/juttle/juttle-graphite-adapter"
-  },
+  "repository": "juttle/juttle-graphite-adapter",
   "scripts": {
     "test": "mocha test"
   },
