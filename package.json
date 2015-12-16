@@ -6,7 +6,6 @@
   "homepage": "https://github.com/juttle/juttle-graphite-adapter",
   "bugs": "https://github.com/juttle/juttle-graphite-adapter/issues",
   "license": "Apache-2.0",
-  "author": "Rodney Gomes <rodney@jut.io>",
   "main": "lib/index.js",
   "repository": "juttle/juttle-graphite-adapter",
   "scripts": {
