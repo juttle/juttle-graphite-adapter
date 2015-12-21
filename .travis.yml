@@ -1,5 +1,9 @@
 language: node_js
 
+cache:
+  directories:
+    - node_modules
+
 node_js:
     - '4.2'
     - '5.0'
@@ -8,13 +12,11 @@ services:
     - docker
 
 before_script:
-    - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/juttle/juttle.git
-    - pushd juttle ; npm install ; npm link ; popd
+	- npm install juttle@0.1.0
     - docker pull juttle/graphite:1
     - docker run -d --name graphite -p 8080:80 -p 2003:2003 -v `pwd`/scripts/storage-schemas.conf:/opt/graphite/conf/storage-schemas.conf juttle/graphite:1
 
 script:
-    - export NODE_PATH="$(dirname `which node`)/../lib/node_modules"
     - npm test
 
 after_script:
