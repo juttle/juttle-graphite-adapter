@@ -2,13 +2,21 @@
   "name": "juttle-graphite-adapter",
   "version": "0.1.0",
   "description": "Juttle adapter for Graphite",
-  "keywords": ["juttle", "adapter", "graphite"],
+  "keywords": [
+    "juttle",
+    "adapter",
+    "graphite"
+  ],
   "homepage": "https://github.com/juttle/juttle-graphite-adapter",
   "bugs": "https://github.com/juttle/juttle-graphite-adapter/issues",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "repository": "juttle/juttle-graphite-adapter",
   "scripts": {
+    "lint": "npm run jshint & npm run style",
+    "jshint": "jshint lib/*.js test/*.js",
+    "shrinkwrap": "npm-shrinkwrap",
+    "style": "jscs lib/*.js test/*.js",
     "test": "mocha test"
   },
   "dependencies": {
@@ -20,8 +28,13 @@
   "devDependencies": {
     "bluebird-retry": "^0.5.2",
     "chai": "^3.4.1",
+    "jscs": "^2.6.0",
+    "jshint": "^2.9.1-rc1",
     "mocha": "^2.3.4",
     "uuid": "^2.0.1"
+  },
+  "peerDependencies": {
+    "juttle": "0.1.x"
   },
   "engines": {
     "node": ">=4.2.0",

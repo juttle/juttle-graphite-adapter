@@ -73,7 +73,7 @@ describe('graphite-adapter API tests', function () {
         now = now.toISOString();
 
         return check_juttle({
-            program: 'emit -from :' + now + ': -limit 1 ' + 
+            program: 'emit -from :' + now + ': -limit 1 ' +
                 '| put name="metric' + uniqueness + '", value = count() | write graphite'
         })
         .then(function(result) {
@@ -185,13 +185,13 @@ describe('graphite-adapter API tests', function () {
         .then(function() {
             return retry(function() {
                 return check_juttle({
-                    program: 'read graphite -from :1 minute ago: ' + 
+                    program: 'read graphite -from :1 minute ago: ' +
                         'name~"metric' + uniqueness + '.region2.*"'
                 })
                 .then(function(result) {
                     expect(result.errors.length).equal(0);
                     expect(result.sinks.table.length).equal(4);
-                    for (var index = 0; index < 4; index++) { 
+                    for (var index = 0; index < 4; index++) {
                         expect(result.sinks.table[index].name).to.be.equal('metric' + uniqueness + '.region2.host' + (index+1));
                         expect(result.sinks.table[index].value).to.be.equal(index+1);
                     }
