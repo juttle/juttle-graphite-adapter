@@ -34,7 +34,7 @@
     "uuid": "^2.0.1"
   },
   "peerDependencies": {
-    "juttle": "0.1.x"
+    "juttle": "0.2.x"
   },
   "engines": {
     "node": ">=4.2.0",
