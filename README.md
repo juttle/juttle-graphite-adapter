@@ -1,6 +1,6 @@
 # Juttle Graphite Adapter
 
-[![Build Status](https://magnum.travis-ci.com/juttle/juttle-graphite-adapter.svg?token=y7186y8XHjB7CcxwUcoX)](https://magnum.travis-ci.com/juttle/juttle-graphite-adapter)
+[![Build Status](https://travis-ci.org/juttle/juttle-graphite-adapter.svg?branch=master)](https://travis-ci.org/juttle/juttle-graphite-adapter)
 
 Graphite adapter for the [Juttle data flow
 language](https://github.com/juttle/juttle), with read & write support.
