@@ -45,7 +45,7 @@ within Juttle. To do so, add the following to your `~/.juttle/config.json` file:
 ```json
 {
     "adapters": {
-        "juttle-graphite-adapter": {
+        "graphite": {
             "carbon": {
                 "host": "localhost",
                 "port": 2003
