@@ -29,7 +29,29 @@ describe('graphite-adapter API tests', function () {
         .then(function() {
             throw Error('Previous statement should have failed');
         }).catch(function(err) {
-            expect(err.message).to.equal('Error: filter expression must match: name="XXX"/name~"X.*"');
+            expect(err.message).to.contain('filter expression must match: name="XXX"/name~"X.*"');
+        });
+    });
+
+    it('warns when you attempt to write a point without the field "name"', function() {
+        return check_juttle({
+            program: 'emit -limit 1 | put value=count() | write graphite'
+        })
+        .then(function(result) {
+            expect(result.errors.length).equal(0);
+            expect(result.warnings.length).equal(1);
+            expect(result.warnings[0]).to.match(/required field "name" not found in data/);
+        });
+    });
+
+    it('warns when you attempt to write a point without the field "value"', function() {
+        return check_juttle({
+            program: 'emit -limit 1 | put name="foo" | write graphite'
+        })
+        .then(function(result) {
+            expect(result.errors.length).equal(0);
+            expect(result.warnings.length).equal(1);
+            expect(result.warnings[0]).to.match(/required field "value" not found in data/);
         });
     });
 
@@ -50,7 +72,7 @@ describe('graphite-adapter API tests', function () {
         .then(function() {
             throw Error('Previous statement should have failed');
         }).catch(function(err) {
-            expect(err.message).to.equal('Error: invalid read graphite required option -from.');
+            expect(err.message).to.contain('invalid read graphite required option -from.');
         });
     });
 
@@ -61,7 +83,7 @@ describe('graphite-adapter API tests', function () {
         .then(function() {
             throw Error('Previous statement should have failed');
         }).catch(function(err) {
-            expect(err.message).to.equal('Error: unknown read graphite option unknown.');
+            expect(err.message).to.contain('unknown read graphite option unknown.');
         });
     });
 
