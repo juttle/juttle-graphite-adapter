@@ -65,6 +65,37 @@ describe('graphite-adapter API tests', function () {
         });
     });
 
+    it('can write a metric with value 0 and then read it back', function() {
+        var uniqueness = uuid.v1().substring(0, 6);
+        var now = new Date();
+        // graphite can only store points with second precision
+        now.setMilliseconds(0);
+        now = now.toISOString();
+
+        return check_juttle({
+            program: 'emit -from :' + now + ': -limit 1 ' +
+                '| put name="metric' + uniqueness + '", value = 0 | write graphite'
+        })
+        .then(function(result) {
+            expect(result.errors.length).equal(0);
+        })
+        .then(function() {
+            return retry(function() {
+                return check_juttle({
+                    // -:1s: becuase from is exclusive
+                    program: 'read graphite -from :' + now + ':-:1s: name="metric' + uniqueness + '"'
+                })
+                .then(function(result) {
+                    expect(result.errors.length).equal(0);
+                    expect(result.sinks.table.length).equal(1);
+                    expect(result.sinks.table[0].time).equal(now);
+                    expect(result.sinks.table[0].name).equal('metric' + uniqueness);
+                    expect(result.sinks.table[0].value).equal(0);
+                });
+            }, { interval:1000, timeout: 5000});
+        });
+    });
+
     it('can write a metric and then read it back', function() {
         var uniqueness = uuid.v1().substring(0, 6);
         var now = new Date();
