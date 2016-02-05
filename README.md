@@ -10,7 +10,7 @@ language](https://github.com/juttle/juttle), with read & write support.
 Reading existing metrics is as simple as:
 
 ```juttle
-read graphite name ~ 'app1.*.response_ms' -from :1 week ago:
+read graphite -from :1 week ago: name ~ 'app1.*.response_ms'
 | reduce value = avg(value) by name
 ```
 
@@ -22,7 +22,7 @@ like `region.host.metric_name`. Then you can calculate the average value of the
 response time per host every 1 minute for the last 24 hours like so:
 
 ```juttle
-read graphite name ~ '*.response_ms' -from :24 hours ago:
+read graphite -from :24 hours ago: name ~ '*.response_ms'
 | put host = String.split(name, '.')[1]
 | reduce -every :1 minute: value = avg(value) by host
 ```
