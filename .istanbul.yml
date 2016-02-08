@@ -1,0 +1,9 @@
+check:
+    global:
+        statements: 94
+        branches: 83
+        functions: 94
+        lines: 94
+        excludes: []
+
+

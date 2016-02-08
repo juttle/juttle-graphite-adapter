@@ -17,7 +17,8 @@
     "jshint": "jshint lib/*.js test/*.js",
     "shrinkwrap": "npm-shrinkwrap",
     "style": "jscs lib/*.js test/*.js",
-    "test": "mocha test"
+    "test": "eslint **/*.js && node_modules/.bin/istanbul cover -x 'lib/parser.js' node_modules/.bin/_mocha",
+    "check-coverage": "node_modules/.bin/istanbul check-coverage"
   },
   "dependencies": {
     "bluebird": "^3.0.5",
@@ -28,13 +29,15 @@
   "devDependencies": {
     "bluebird-retry": "^0.5.2",
     "chai": "^3.4.1",
+    "eslint": "^1.10.3",
+    "istanbul": "^0.4.2",
     "jscs": "^2.6.0",
     "jshint": "^2.9.1-rc1",
     "mocha": "^2.3.4",
     "uuid": "^2.0.1"
   },
   "peerDependencies": {
-    "juttle": ">=0.3.0"
+    "juttle": ">=0.4.0"
   },
   "engines": {
     "node": ">=4.2.0",
