@@ -3,28 +3,29 @@
 var juttle_test_utils = require('juttle/test/runtime/specs/juttle-test-utils');
 var check_juttle = juttle_test_utils.check_juttle;
 var expect = require('chai').expect;
-var graphite = require('../lib/index.js');
+var path = require('path');
 var retry = require('bluebird-retry');
 var uuid = require('uuid');
 
-var Juttle = require('juttle/lib/runtime').Juttle;
-
-Juttle.adapters.register('graphite', graphite({
-    carbon: {
-        host: 'localhost',
-        port: 2003
-    },
-    webapp: {
-        host: 'localhost',
-        port: 8080,
-        username: 'guest',
-        password: 'guest'
+juttle_test_utils.configureAdapter({
+    graphite: {
+        path: path.resolve(__dirname, '..'),
+        carbon: {
+            host: 'localhost',
+            port: 2003
+        },
+        webapp: {
+            host: 'localhost',
+            port: 8080,
+            username: 'guest',
+            password: 'guest'
+        }
     }
-}, Juttle));
+});
 
 describe('graphite-adapter API tests', function () {
 
-    it('fails when provided an invalid filter exprssion', function() {
+    it('fails when provided an invalid filter expression', function() {
         return check_juttle({
             program: 'read graphite -from :5 minutes ago: badfield="metric.does.not.exist"'
         })
@@ -32,6 +33,17 @@ describe('graphite-adapter API tests', function () {
             throw Error('Previous statement should have failed');
         }).catch(function(err) {
             expect(err.message).to.contain('filter expression must match: name="XXX"/name~"X.*"');
+        });
+    });
+
+    it('fails when not provided -from/-to or -last', function() {
+        return check_juttle({
+            program: 'read graphite name="foo"'
+        })
+        .then(function() {
+            throw Error('Previous statement should have failed');
+        }).catch(function(err) {
+            expect(err.code).to.equal('MISSING-TIME-RANGE');
         });
     });
 
@@ -81,7 +93,7 @@ describe('graphite-adapter API tests', function () {
 
     it('fails when provided an unknown option', function() {
         return check_juttle({
-            program: 'read graphite -unknown "bananas" name="metric.*"'
+            program: 'read graphite -from :1 minute ago: -unknown "bananas" name="metric.*"'
         })
         .then(function() {
             throw Error('Previous statement should have failed');
@@ -96,7 +108,8 @@ describe('graphite-adapter API tests', function () {
         return check_juttle({
             // pushing the point 2s into the future to simulate live
             program: 'emit -from :now: -limit 1 ' +
-                '| put name="metric' + uniqueness + '", value = count(), time = time + :2s:  | write graphite'
+                     '| put name="metric' + uniqueness + '", value = count(), time = time + :2s: ' +
+                     '| write graphite'
         })
         .then(function(result) {
             expect(result.errors.length).equal(0);
@@ -104,7 +117,7 @@ describe('graphite-adapter API tests', function () {
         })
         .then(function() {
             return check_juttle({
-                program: 'read graphite -lag :5s: name="metric' + uniqueness + '"',
+                program: 'read graphite -to :end: name="metric' + uniqueness + '"',
                 realtime: true
             }, 10000)
             .then(function(result) {

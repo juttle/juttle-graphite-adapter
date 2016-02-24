@@ -4,6 +4,9 @@
         "node": true,
         "es6": true
     },
+    "globals": {
+        "JuttleAdapterAPI": true
+    },
     "rules": {
         "no-new-object": [ 2 ],
         "eqeqeq": [ 2 ],
