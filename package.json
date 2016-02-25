@@ -35,9 +35,6 @@
     "mocha": "^2.3.4",
     "uuid": "^2.0.1"
   },
-  "peerDependencies": {
-    "juttle": ">=0.4.0"
-  },
   "engines": {
     "node": ">=4.2.0",
     "npm": ">=2.14.7"
