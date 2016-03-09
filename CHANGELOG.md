@@ -3,6 +3,14 @@
 This file documents all notable changes to Juttle Graphite Adapter. The release
 numbering uses [semantic versioning](http://semver.org).
 
+## 0.4.2
+
+Released 2016-03-08
+
+### Minor Changes
+
+- remove require('juttle/xxx') references [#36]
+
 ## 0.4.1
 
 Released 2016-02-24
