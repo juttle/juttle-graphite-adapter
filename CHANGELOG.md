@@ -3,6 +3,16 @@
 This file documents all notable changes to Juttle Graphite Adapter. The release
 numbering uses [semantic versioning](http://semver.org).
 
+## 0.5.0
+
+### Major Changes
+
+ - updated to work with juttle@0.6.0 [#37]
+
+### Minor Changes
+
+ - make things more es6-y [#38]
+
 ## 0.4.2
 
 Released 2016-03-08
