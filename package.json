@@ -21,7 +21,7 @@
     "lazy-socket": "0.0.4",
     "underscore": "^1.8.3"
   },
-  "juttleAdapterAPI": "^0.5.0",
+  "juttleAdapterAPI": "^0.7.0",
   "devDependencies": {
     "bluebird-retry": "^0.5.2",
     "chai": "^3.4.1",
